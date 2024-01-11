@@ -1,0 +1,31 @@
+kv:
+  type: badger # always use badger. filekv is only used for basic testing
+  settings:
+    path: /tmp/kevdb # make sure to secure this path with ACL so only kevd can access it
+    encryption: true # recommended
+    encryption_key: "76f7db73091edd89ff7ae4a8df6459b53fb59736d2f7cbd95e4ae101e99cecdc" # generate with openssl rand -hex 32
+  rest:
+    # DANGER ZONE: this API allows setting arbitrary values
+    # in the database. DO NOT USE THIS UNLESS YOU KNOW WHAT YOU'RE DOING
+    enabled: true
+    listen: "tcp://127.0.0.1:8082"
+    base_path: "/set"
+    auth:
+      # if the users is empty, it disables authentication
+      users:
+        - admin:admin
+policies:
+  - name: aws can read the key
+    type: cmdline
+    settings:
+      cmd: ".*?aws.*?"
+      allowed_keys:
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_ACCESS_KEY
+rest:
+  # listen: "unix:///tmp/kevdb.sock"
+  listen: "tcp://0.0.0.0:8081"
+  base_path: "/env"
+  auth:
+    # if the users is empty, it disables authentication
+    users:
