@@ -20,7 +20,7 @@ func main() {
 		log.Fatalln("KEVD_URI is not set")
 	}
 	// create a new client
-	newEnvs := client.GetEnv(kevdURI)
+	newEnvs := client.GetEnv(kevdURI, os.Args[1:]...)
 	// inject the new environment variables
 	oldEnv := os.Environ()
 	for _, env := range oldEnv {

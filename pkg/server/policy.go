@@ -5,6 +5,7 @@ import "regexp"
 // a simple implementation of the policy interface which links a set of processess to a set of keys in the kv store as allowed
 
 type Process interface {
+	GetMachineId() string
 	GetCmdline() string
 	GetEnvs() map[string]string
 	GetCwd() string

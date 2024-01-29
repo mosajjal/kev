@@ -25,17 +25,21 @@ import (
 // }
 
 type ProcJSON struct {
-	Cmdline string            `json:"cmdline"`
-	Cwd     string            `json:"cwd"`
-	Exe     string            `json:"exe"`
-	UID     int               `json:"uid"`
-	GID     int               `json:"gid"`
-	Env     map[string]string `json:"env"`
+	Cmdline   string            `json:"cmdline"`
+	MachineId string            `json:"machine_id"`
+	Cwd       string            `json:"cwd"`
+	Exe       string            `json:"exe"`
+	UID       int               `json:"uid"`
+	GID       int               `json:"gid"`
+	Env       map[string]string `json:"env"`
 }
 
 // implement the process interface for procJSON
 func (p ProcJSON) GetCmdline() string {
 	return p.Cmdline
+}
+func (p ProcJSON) GetMachineId() string {
+	return p.MachineId
 }
 func (p ProcJSON) GetEnvs() map[string]string {
 	return p.Env
